@@ -9,7 +9,7 @@
 }
 
 .App-logo {
-    height: 40vmin;
+    height: 15vmin;
     pointer-events: none;
 }
 
@@ -41,17 +41,4 @@
 ul {
     text-align: left;
     width: 400px;
-}
-
-input {
-    height: 27px;
-    margin: 4px;
-    padding: 4px;
-    font-size: 24px;
-}
-button {
-    height: 40px;
-    margin: 4px;
-    padding: 4px;
-    font-size: 24px;
 }

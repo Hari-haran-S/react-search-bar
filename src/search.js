@@ -10,27 +10,30 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
         e.preventDefault();
         setloading(true);
         setresponse(null);
-        const queryURL = new URL(
-            'https://chatbot-dffu.onrender.com/policyQuery',
-        );
-        // queryURL.searchParams.append('text', query);
+        try {
+            const queryURL = new URL(
+                'https://chatbot-dffu.onrender.com/policyQuery',
+            );
+            // queryURL.searchParams.append('text', query);
 
-        const response = await fetch(queryURL, {
-            method: 'POST',
-            mode: 'cors',
-            body: JSON.stringify({ query: searchQuery }),
-        });
+            const response = await fetch(queryURL, {
+                method: 'POST',
+                mode: 'cors',
+                body: JSON.stringify({ query: searchQuery }),
+            });
 
-        // if (!response.ok) {
-        //   return { result:[] };
-        // }
+            // if (!response.ok) {
+            //   return { result:[] };
+            // }
 
-        const queryResponse = await response.json();
-        console.log(queryResponse);
-        if (queryResponse) {
-            setresponse(queryResponse?.result);
-            setloading(false);
-        } else {
+            const queryResponse = await response.json();
+            console.log(queryResponse);
+            if (queryResponse) {
+                setresponse(queryResponse?.result);
+                setloading(false);
+            }
+        } catch (error) {
+            console.log(error);
             setresponse('Something went wrong');
             setloading(false);
         }
@@ -49,15 +52,40 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
                         Search blog posts
                     </span>
                 </label>
-                <input
+                {/* <input
                     value={searchQuery}
                     onInput={(e) => setSearchQuery(e.target.value)}
                     type="text"
                     id="header-search"
                     placeholder="Search"
                     name="s"
+                    className="form-control"
                 />
-                <button type="submit">Search</button>
+
+                <button type="submit" className="btn btn-primary">
+                    Search
+                </button> */}
+                <div class="input-group mb-3">
+                    <input
+                        value={searchQuery}
+                        onInput={(e) =>
+                            setSearchQuery(e.target.value)
+                        }
+                        type="text"
+                        id="header-search"
+                        placeholder="Search your queries"
+                        name="s"
+                        className="form-control"
+                    />
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i
+                                class="fa fa-search"
+                                aria-hidden="true"
+                            ></i>
+                        </button>
+                    </div>
+                </div>
             </form>
             <>{response ? <p>{response}</p> : <></>}</>
             <>{loading ? <p>Please wait....</p> : <></>}</>
