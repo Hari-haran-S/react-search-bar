@@ -43,7 +43,7 @@ import Search from './search';
 // };
 
 const App = () => {
-    const { search } = window.location;
+    // const { search } = window.location;
     // const query = new URLSearchParams(search).get('s');
     const [searchQuery, setSearchQuery] = useState('');
     // const filteredPosts = filterPosts(posts, searchQuery);
