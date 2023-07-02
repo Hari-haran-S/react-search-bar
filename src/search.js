@@ -11,7 +11,7 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
         setloading(true);
         setresponse(null);
         const queryURL = new URL(
-            'https://21b1-2401-4900-2324-8bf3-cd12-2556-97cc-fe93.ngrok-free.app/policyQuery',
+            'https://chatbot-dffu.onrender.com/policyQuery',
         );
         // queryURL.searchParams.append('text', query);
 
