@@ -1,34 +1,67 @@
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const SearchBar = ({ searchQuery, setSearchQuery }) => {
     const history = useHistory();
-    const onSubmit = (e) => {
-        history.push(`?s=${searchQuery}`);
+    const [response, setresponse] = useState(null);
+    const [loading, setloading] = useState(false);
+    const onSubmit = async (e) => {
+        // history.push(`?s=${searchQuery}`);
         e.preventDefault();
+        setloading(true);
+        setresponse(null);
+        const queryURL = new URL(
+            'https://21b1-2401-4900-2324-8bf3-cd12-2556-97cc-fe93.ngrok-free.app/policyQuery',
+        );
+        // queryURL.searchParams.append('text', query);
+
+        const response = await fetch(queryURL, {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify({ query: searchQuery }),
+        });
+
+        // if (!response.ok) {
+        //   return { result:[] };
+        // }
+
+        const queryResponse = await response.json();
+        console.log(queryResponse);
+        if (queryResponse) {
+            setresponse(queryResponse?.result);
+            setloading(false);
+        } else {
+            setresponse('Something went wrong');
+            setloading(false);
+        }
     };
 
     return (
-        <form
-            action="/"
-            method="get"
-            autoComplete="off"
-            onSubmit={onSubmit}
-        >
-            <label htmlFor="header-search">
-                <span className="visually-hidden">
-                    Search blog posts
-                </span>
-            </label>
-            <input
-                value={searchQuery}
-                onInput={(e) => setSearchQuery(e.target.value)}
-                type="text"
-                id="header-search"
-                placeholder="Search blog posts"
-                name="s"
-            />
-            <button type="submit">Search</button>
-        </form>
+        <>
+            <form
+                action="/"
+                method="get"
+                autoComplete="off"
+                onSubmit={onSubmit}
+            >
+                <label htmlFor="header-search">
+                    <span className="visually-hidden">
+                        Search blog posts
+                    </span>
+                </label>
+                <input
+                    value={searchQuery}
+                    onInput={(e) => setSearchQuery(e.target.value)}
+                    type="text"
+                    id="header-search"
+                    placeholder="Search"
+                    name="s"
+                />
+                <button type="submit">Search</button>
+            </form>
+            <>{response ? <p>{response}</p> : <></>}</>
+            <>{loading ? <p>Please wait....</p> : <></>}</>
+        </>
     );
 };
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import logo from './logo.svg';
+import logo from './cholamandalam-logo.png';
 import './App.css';
 import Search from './search';
 import Announcer from './announcer';
@@ -22,29 +22,49 @@ const filterPosts = (posts, query) => {
         return postName.includes(query);
     });
 };
+// const queryIndex = async (query) => {
+//     const queryURL = new URL(
+//         'https://21b1-2401-4900-2324-8bf3-cd12-2556-97cc-fe93.ngrok-free.app/policyQuery',
+//     );
+//     // queryURL.searchParams.append('text', query);
+
+//     const response = await fetch(queryURL, {
+//         method: 'POST',
+//         mode: 'cors',
+//         body: JSON.stringify({ query: query }),
+//     });
+//     // if (!response.ok) {
+//     //   return { result:[] };
+//     // }
+
+//     const queryResponse = await response.json();
+
+//     return queryResponse;
+// };
 
 const App = () => {
     const { search } = window.location;
     const query = new URLSearchParams(search).get('s');
-    const [searchQuery, setSearchQuery] = useState(query || '');
-    const filteredPosts = filterPosts(posts, searchQuery);
+    const [searchQuery, setSearchQuery] = useState('');
+    // const filteredPosts = filterPosts(posts, searchQuery);
 
     return (
         <Router>
             <div className="App">
-                <Announcer
+                {/* <Announcer
                     message={`${filteredPosts.length} posts`}
-                />
+                /> */}
                 <img src={logo} className="App-logo" alt="logo" />
+                <h2>CholaONE Chatbot</h2>
                 <Search
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
                 />
-                <ul>
+                {/* <ul>
                     {filteredPosts.map((post) => (
                         <li key={post.id}>{post.name}</li>
                     ))}
-                </ul>
+                </ul> */}
             </div>
         </Router>
     );
