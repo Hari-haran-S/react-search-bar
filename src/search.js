@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const SearchBar = ({ searchQuery, setSearchQuery }) => {
-    const history = useHistory();
+    // const history = useHistory();
     const [response, setresponse] = useState(null);
     const [loading, setloading] = useState(false);
     const onSubmit = async (e) => {
